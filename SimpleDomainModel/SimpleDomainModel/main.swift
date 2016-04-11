@@ -20,7 +20,7 @@ public class TestMe {
   }
 }
 
-////////////////////////////////////
+/////////////////////////////////////
 // Money
 //
 public struct Money {
@@ -31,28 +31,28 @@ public struct Money {
 //    1 USD = .5 GBP (2 USD = 1 GBP) 1 USD = 1.5 EUR (2 USD = 3 EUR) 1 USD = 1.25 CAN (4 USD = 5 CAN)
     var result = Money(amount: self.amount, currency: self.currency);
     if (result.currency != to) {
-        
         if (result.currency != "USD") {
             if (result.currency == "GBP") {
-                result.amount = result.amount / 2;
-//                self.currency = "USD";
+                result.amount = result.amount * 2;
             } else if (result.currency == "EUR") {
+                result.amount = result.amount / 3 * 2;
+            } else {
+                result.amount = result.amount / 5 * 4;
+            }
+            result.currency = "USD";
+        }
+        if (to != "USD") {
+            if (to == "GBP") {
+                result.amount = result.amount / 2;
+                result.currency = to;
+            } else if (to == "EUR") {
                 result.amount = result.amount * 3 / 2;
-//                self.currency = "USD";
+                result.currency = to;
+                print("%%%%%%%%%%%\(result.amount) \(result.currency)%%%%%%%%%%%");
             } else {
                 result.amount = result.amount * 5 / 4;
-//                self.currency = "USD";
+                result.currency = to;
             }
-        }
-        if (to == "GBP") {
-            result.amount = result.amount * 2;
-            result.currency = to;
-        } else if (to == "EUR") {
-            result.amount == result.amount / 3 * 2;
-            result.currency = to;
-        } else {
-            result.amount = result.amount / 5 * 4;
-            result.currency = to;
         }
     }
     return result;
@@ -120,25 +120,23 @@ public class Person {
   public var firstName : String = ""
   public var lastName : String = ""
   public var age : Int = 0
+    private var _job : Job? = nil;
+    private var _spouse : Person? = nil;
 
   public var job : Job? {
-    get {return self.job}
+    get {return self._job}
     set(newJob) {
-        if (age >= 16) {
-            self.job = newJob;
-        } else {
-            self.job = nil;
+        if (self.age >= 16) {
+            self._job = newJob;
         }
     }
   }
   
   public var spouse : Person? {
-    get {return self.spouse}
+    get {return self._spouse}
     set(newSpouse) {
         if (age >= 18) {
-            self.spouse = newSpouse;
-        } else {
-            self.spouse = nil;
+            self._spouse = newSpouse;
         }
     }
   }
@@ -149,9 +147,9 @@ public class Person {
     self.age = age
   }
   
-//  public func toString() -> String {
-//    return "[Person: firstName:\(self.firstName) lastName:\(self.lastName) age:\(self.age) job:\(self.job) spouse:\(self.spouse)]";
-//  }
+  public func toString() -> String {
+    return "[Person: firstName:\(self.firstName) lastName:\(self.lastName) age:\(self.age) job:\(self.job) spouse:\(self.spouse)]";
+  }
 }
 
 ////////////////////////////////////
